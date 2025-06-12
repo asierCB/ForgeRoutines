@@ -1,0 +1,41 @@
+# Archivos de entorno virtual
+venv/
+.venv/
+env/
+/lib/
+/include/
+/bin/
+/Scripts/
+/.Python/
+
+# Archivos de la base de datos
+*.sqlite3
+db.sqlite3
+
+# Archivos de variables de entorno (dotenv)
+.env
+.flaskenv
+# Si usas una carpeta específica para las variables de entorno o secrets:
+/secrets/
+/config/secrets/ # Si tienes una subcarpeta dentro de config para esto
+
+# Archivos de Python generados
+*.pyc
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+
+# Archivos de Django específicos
+/media/   # Si subes archivos de usuario, no deben estar en el repo
+/static/  # Si usas collectstatic, los archivos generados no deben ir al repo
+*.log
+local_settings.py  # Si usas un archivo local de configuración que sobreescriba settings.py
+
+# Archivos de IDEs (opcional, pero recomendado si usas alguno)
+.idea/             # PyCharm / IntelliJ
+.vscode/           # VS Code (considera mantener settings.json si es compartido por el equipo)
+*.sublime-project
+*.sublime-workspace
+
+# Archivos del sistema operativo
+Thumbs.db          # Windows

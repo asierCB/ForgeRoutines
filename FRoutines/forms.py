@@ -3,6 +3,25 @@ from email.policy import default
 from django import forms
 
 class RoutineGenerationForm(forms.Form):
+    # Age
+    age = forms.IntegerField()
+
+    # Gender
+    gender_choices = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other')
+    ]
+    gender = forms.ChoiceField(choices=gender_choices)
+
+    # Height and Weight
+    height = forms.IntegerField(
+        label='Height (in cm)',
+    )
+    weight = forms.IntegerField(
+        label='Weight (in kg)',
+    )
+
     # Level section
     level_choices = [
         ('beginner', 'Beginner'),
@@ -15,7 +34,36 @@ class RoutineGenerationForm(forms.Form):
         required=True,
     )
 
-    #Training Type
+    # Goal
+    goal_choices = [
+        ('fat loss', 'Fat Loss'),
+        ('muscle gain', 'Muscle Gain'),
+        ('improved endurance', 'Improved Endurance'),
+        ('general health', 'General Health'),
+    ]
+    goal = forms.ChoiceField(
+        choices=goal_choices,
+    )
+
+    # Frequency
+    frequency = forms.IntegerField(
+        label='Workout Frequency (days per week)',
+    )
+
+    # Preferred workout style
+    style_choices = [
+        ('full body', 'Full Body'),
+        ('split routine', 'Split Routine'),
+        ('HIIT', 'HIIT'),
+        ('bodyweight', 'Body Weight'),
+        ('functional training', 'Functional Training'),
+    ]
+    style = forms.ChoiceField(
+        label='Prefered Workout Style',
+        choices=style_choices,
+    )
+
+    '''#Training Type
     type_choices = [
         ('strenght', 'Strength'),
         ('cardiovascular', 'Cardiovascular'),
@@ -25,9 +73,9 @@ class RoutineGenerationForm(forms.Form):
         label='Training Type',
         choices=type_choices,
         required=True,
-    )
+    )'''
 
-    # Muscular Group
+    '''# Muscular Group
     muscular_group_choices = [
         ('chest', 'Chest'),
         ('back', 'Back'),
@@ -46,7 +94,7 @@ class RoutineGenerationForm(forms.Form):
         label='Muscular Group',
         choices=muscular_group_choices,
         widget=forms.CheckboxSelectMultiple,
-    )
+    )'''
 
     # Equipment
     equipment_choices = [
@@ -56,6 +104,7 @@ class RoutineGenerationForm(forms.Form):
         ('kettlebell', 'Kettlebell'),
         ('pullupbar', 'Pull Up Bar'),
         ('parallelbars', 'Parallel Bars'),
+        ('resistance bands', 'Resistance Bands'),
     ]
     equipment = forms.MultipleChoiceField(
         label='Equipment',

@@ -18,18 +18,36 @@ def generate_workout_routine(user_data):
 
     prompt = (
         #String with the information
-
-        f"Genera una rutina de entrenamiento de 1 día para una persona con los siguientes datos:\n"
-        f"Nivel: {user_data.get('level')}\n"#, 'intermedio')}\n"
+        #f' Generate a 1 day training routine for a person using the following data:\n'
+        #f"Level: {user_data.get('level')}\n"#, 'intermedio')}\n"
         #f"Objetivo: {user_data.get('objetivo', 'ganar masa muscular')}\n"
         #f"Días a la semana: {user_data.get('dias', '4')}\n"
-        f'Tipo de entrenamiento: {user_data.get("type")}\n'
-        f'Para trabajar los grupos musculares: {user_data.get("muscular_group")}\n'
-        f"Equipo disponible: {user_data.get('equipment')}\n"#, 'mancuernas, barra, banco')}\n"
+        #f'Training Type: {user_data.get("type")}\n'
+        #f'Muscular Groups: {user_data.get("muscular_group")}\n'
+        #f"Equipmetn Available: {user_data.get('equipment')}\n"#, 'mancuernas, barra, banco')}\n"
         #f"Limitaciones: {user_data.get('limitaciones', 'ninguna')}\n\n"
-        f'Duración: {user_data.get("duration")} minutos\n'
-        f"Estructura la rutina por días, con ejercicios, series y repeticiones. Sé conciso y ve al grano."
+        #f'Duration: {user_data.get("duration")} minutos\n'
+        #f'Extra Information: {user_data.get("extra")}\n'
+        #f"Estructura la rutina por días, con ejercicios, series y repeticiones. Sé conciso y ve al grano."
 
+
+        f"Act as a professional fitness trainer and create a personalized workout routine for me. I want a plan that "
+        f"includes both strength training and cardio, tailored to my fitness level, goals, available equipment, and schedule. "
+        f"Here are my details:\n"
+
+        f"Age:{user_data.get('age')}\n"
+        f"Gender:{user_data.get('gender')}\n"
+        f"Height / Weight:{user_data.get('height')} and {user_data.get('weight')}\n"
+        f"Fitness level: {user_data.get('level')}\n"
+        f"Goal:{user_data.get('goal')}\n"
+        f"Workout frequency:{user_data.get('frequency')}\n"
+        f"Available equipment:{user_data.get('equipment')}\n"
+        f"Preferred workout style:{user_data.get('style')}\n"
+        f"Workout duration:{user_data.get('duration')}\n"
+        f"Extra information:{user_data.get('extra')}\n"
+        
+        f"Please include warm-up, main exercises, and cooldown / stretching.Provide sets, reps, and rest time.Also, "
+        f"include tips or progressions for each week if possible."
     )
 
     #model = genai.GenerativeModel('gemini-pro')

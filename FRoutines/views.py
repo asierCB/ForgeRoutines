@@ -41,7 +41,7 @@ def generate_workout_routine(user_data):
         f"Fitness level: {user_data.get('level')}\n"
         f"Goal:{user_data.get('goal')}\n"
         f"Workout frequency:{user_data.get('frequency')}\n"
-        f"Available equipment:{user_data.get('equipment')}\n"
+        f"Available equipment (you do not have to use all of them):{user_data.get('equipment')}\n"
         f"Preferred workout style:{user_data.get('style')}\n"
         f"Workout duration:{user_data.get('duration')}\n"
         f"Extra information:{user_data.get('extra')}\n"

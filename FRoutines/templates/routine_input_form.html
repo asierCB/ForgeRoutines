@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,26 +8,85 @@
     <title>Generar Rutina</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 </head>
-<body>
-<div class="card" style="width: 80%; margin: 10%; align-content: center; align-items: center">
-    <div class="card-header">
-        <h1>Workout Routines Generator</h1>
-    </div>
+<body style="background-color: #dee2ec">
 
-    <div class="card-body">
-    <!--<div class="container overflow-hidden text-center" style="background-color: antiquewhite">-->
-        <form method="post" action="{% url 'generate_routine' %}">
-            {% csrf_token %}
+    <div class="container text-center rounded" style="margin-top: 5%; margin-bottom: 5%; border-radius: 15%">
 
-            {{ form.as_p }}
-            <!--<label for="nivel">Nivel:</label><br>
-            <input type="text" id="nivel" name="nivel"><br><br>
-            <label for="objetivo">Objetivo:</label><br>
-            <input type="text" id="objetivo" name="objetivo"><br><br>-->
-            <input type="submit" value="Generar Rutina">
-        </form>
+        <div class="row">
+            <div class="col-4 rounded-start-5" style="background-color: #fff;">
+                <div style="margin: 5%">
+                    <h2><img class="rounded-circle" src="{% static 'img/logo.jpg' %}" alt="logo" width="60px">
+                        ForgeRoutines
+                    </h2>
+                </div>
+
+                <div class="container" style="margin: 5%">
+                    <form method="post" action="{% url 'generate_routine' %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Generar Rutina">
+                    </form>
+                </div>
+            </div>
+            <div class="col rounded-end-5" style="background-color: #fbfcfb; width: 60%">
+                <div class="rounded">
+                    logos
+                </div>
+                <div>
+                    <h2>Generated Workout Routine</h2>
+                </div>
+                    <h3>WarmUp:</h3>
+                <div>
+                    <table class="table text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">Exercise</th>
+                        <th scope="col">Series</th>
+                        <th scope="col">Repetitions</th>
+                        <th scope="col">Rest</th>
+                    </tr>
+                    {% for wu in warmup %}
+                        <tr>
+                            <td>{{ wu.Exercise }}</td>
+                            <td>{{ wu.Series }}</td>
+                            <td>{{ wu.Repetitions }}</td>
+                            <td>{{ wu.Rest }}</td>
+                        </tr>
+                    {% endfor %}
+                    </thead>
+                    </table>
+                </div>
+
+
+                    <h3>Main Exercises:</h3>
+                <div>
+                    <table class="table text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">Exercise</th>
+                        <th scope="col">Series</th>
+                        <th scope="col">Repetitions</th>
+                        <th scope="col">Rest</th>
+                        <th scope="col">Focus</th>
+                        <th scope="col">Progression</th>
+                    </tr>
+                    {% for exercise in routine %}
+                        <tr>
+                            <td>{{ exercise.Exercise }}</td>
+                            <td>{{ exercise.Series }}</td>
+                            <td>{{ exercise.Repetitions }}</td>
+                            <td>{{ exercise.Rest }}</td>
+                            <td>{{ exercise.Focus }}</td>
+                            <td>{{ exercise.Progression }}</td>
+                        </tr>
+                        <!--<pre>{{ exercise }}</pre>-->
+                    {% endfor %}
+                    </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 </html>

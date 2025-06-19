@@ -29,60 +29,160 @@
                 </div>
             </div>
             <div class="col rounded-end-5" style="background-color: #fbfcfb; width: 60%">
-                <div class="rounded">
-                    logos
-                </div>
                 <div>
                     <h2>Generated Workout Routine</h2>
                 </div>
-                    <h3>WarmUp:</h3>
-                <div>
-                    <table class="table text-center">
-                    <thead>
-                    <tr>
-                        <th scope="col">Exercise</th>
-                        <th scope="col">Series</th>
-                        <th scope="col">Repetitions</th>
-                        <th scope="col">Rest</th>
-                    </tr>
-                    {% for wu in warmup %}
-                        <tr>
-                            <td>{{ wu.Exercise }}</td>
-                            <td>{{ wu.Series }}</td>
-                            <td>{{ wu.Repetitions }}</td>
-                            <td>{{ wu.Rest }}</td>
-                        </tr>
-                    {% endfor %}
-                    </thead>
-                    </table>
+
+
+           <!-- Navigation Bar -->
+    <ul class="nav nav-tabs" id="myWorkoutTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active"
+                        id="info"
+                        data-bs-toggle="tab"
+                        data-bs-target="#general-info"
+                        type="button" role="tab"
+                        aria-controls="general-info"
+                        aria-selected="true">
+                    General Information
+                </button>
+            </li>
+
+
+        {% for day in routine %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link {% if forloop.first %}{% endif %}"
+                        id="day-{{ forloop.counter }}-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#day-{{ forloop.counter }}"
+                        type="button" role="tab"
+                        aria-controls="day-{{ forloop.counter }}"
+                        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+                    {{ day.day_name }}
+                </button>
+            </li>
+        {% endfor %}
+    </ul>
+<br>
+            <div class="tab-content" id="myWorkoutTabContent">
+
+            <!-- General Information -->
+                <div class="tab-pane fade show active"
+                     id="general-info"
+                     role="tabpanel"
+                     aria-labelledby="info-tab"
+                     tabindex="0">
+
+                    <div class="mt-4">
+                        <h4>General Information:</h4>
+                        <ul class="list-group list-group-flush">
+                        {% for part in info %}
+                            <li class="list-group-item">
+                            <p><strong>Category:</strong> {{ part.category }}</p>
+
+                            <p><strong>Description:</strong> {{ part.description }}</p>
+
+                            <ul class="list-group list-group-flush"><strong>Tips:</strong>
+                                {% for tip in part.tips %}
+                                    <li class="list-group-item">{{ tip }}</li>
+                                {% endfor %}
+                            </ul>
+                            </li><br><br>
+                        {% endfor %}
+                        </ul>
+                    </div>
                 </div>
 
 
-                    <h3>Main Exercises:</h3>
-                <div>
-                    <table class="table text-center">
-                    <thead>
-                    <tr>
-                        <th scope="col">Exercise</th>
-                        <th scope="col">Series</th>
-                        <th scope="col">Repetitions</th>
-                        <th scope="col">Rest</th>
-                        <th scope="col">Focus</th>
-                        <th scope="col">Progression</th>
-                    </tr>
-                    {% for exercise in routine %}
-                        <tr>
-                            <td>{{ exercise.Exercise }}</td>
-                            <td>{{ exercise.Series }}</td>
-                            <td>{{ exercise.Repetitions }}</td>
-                            <td>{{ exercise.Rest }}</td>
-                            <td>{{ exercise.Focus }}</td>
-                            <td>{{ exercise.Progression }}</td>
-                        </tr>
-                        <!--<pre>{{ exercise }}</pre>-->
-                    {% endfor %}
-                    </thead>
-                    </table>
+                    {% for day in routine %}
+
+                        <div class="tab-pane fade"
+                             id="day-{{ forloop.counter }}"
+                             role="tabpanel"
+                             aria-labelledby="day-{{ forloop.counter }}-tab"
+                             tabindex="0">
+
+
+                        <h3>{{ day.day_name }} ({{ day.focus }}):</h3>
+                        <h4>WarmUp:</h4>
+                        <div>
+                            <table class="table text-center">
+                            <thead>
+                            <tr>
+                                <th scope="col">Exercise</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Series</th>
+                                <th scope="col">Repetitions</th>
+                                <th scope="col">Rest</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                        {% for wu in day.warmup_exercises %}
+                            <tr>
+                                <td>{{ wu.Exercise }}</td>
+                                <td>{{ wu.Duration }}</td>
+                                <td>{{ wu.Series }}</td>
+                                <td>{{ wu.Repetitions }}</td>
+                                <td>{{ wu.Rest }}</td>
+                            </tr>
+                        {% endfor %}
+                            </tbody>
+                            </table>
+                        </div>
+                        <h4>Main Exercises:</h4>
+                        <div>
+                            <table class="table text-center">
+                            <thead>
+                            <tr>
+                                <th scope="col">Exercise</th>
+                                <th scope="col">Series</th>
+                                <th scope="col">Repetitions</th>
+                                <th scope="col">Rest</th>
+                                <th scope="col">Focus</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {% for exercise in day.main_exercises %}
+                            <tr>
+                                <td>{{ exercise.Exercise }}</td>
+                                <td>{{ exercise.Series }}</td>
+                                <td>{{ exercise.Repetitions }}</td>
+                                <td>{{ exercise.Rest }}</td>
+                                <td>{{ exercise.Focus }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <h4>Cooldown:</h4>
+                        <div>
+                            <table class="table text-center">
+                            <thead>
+                            <tr>
+                                <th scope="col">Exercise</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                        {% for cd in day.cooldown_exercises %}
+                            <tr>
+                                <td>{{ cd.Exercise }}</td>
+                                <td>{{ cd.Duration }}</td>
+                                <td>{{ cd.Description }}</td>
+                            </tr>
+                        {% endfor %}
+                            </tbody>
+                            </table>
+                        <br>
+                        </div>
+
+
+                        </div>
+                    </div>
+
+            {% endfor %}
                 </div>
             </div>
         </div>

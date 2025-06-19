@@ -26,7 +26,7 @@ class RoutineGenerationForm(forms.Form):
     level_choices = [
         ('beginner', 'Beginner'),
         ('intermediate', 'Intermediate'),
-        ('avance', 'Avance'),
+        ('advance', 'Advance'),
     ]
     level = forms.ChoiceField(
         label='Level',

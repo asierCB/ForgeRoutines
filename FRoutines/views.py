@@ -154,7 +154,9 @@ def create_routine_view(request):
     '''
     This is the function that creates the routine view.
     '''
+
     from .utils import WorkoutGenerator
+
     if request.method == "POST":
         form = RoutineGenerationForm(request.POST)
         if form.is_valid():
@@ -164,17 +166,17 @@ def create_routine_view(request):
 
             routine_text = WorkoutGenerator(user_data)
 
-            routine, warmup = routine_text.structure_workout_data()
+            routine, info = routine_text.structure_workout_data()
 
         else:
             routine = 'Error generating workout routine'
-            warmup = 'Error generating workout routine'
+            info = 'Error generating workout routine'
             print('Error generating workout routine')
 
         context = {
             'form':form,
             'routine': routine,
-            'warmup': warmup,
+            'info': info,
         }
 
         return render(request, 'routine_input_form.html', context)
